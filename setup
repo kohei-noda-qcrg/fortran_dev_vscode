@@ -4,7 +4,10 @@ set -eux
 # Is pyenv command exists?
 if ! type pyenv > /dev/null 2>&1; then
 	curl https://pyenv.run | bash # Install pyenv
-	exec $SHELL -l # Reload shell
+	echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
+	echo 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
+	echo 'eval "$(pyenv init -)"' >> ~/.bashrc
+	source ~/.bashrc
 	pyenv install 3.9.9
 	pyenv install 2.7.18
 	pyenv global 3.9.9 2.7.18
