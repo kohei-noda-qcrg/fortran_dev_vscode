@@ -2,7 +2,8 @@
 
 set -eux
 
-function install_python(version) {
+function install_python() {
+	version=$1
 	pyenv install $version
 	pyenv global $version
 }
@@ -16,12 +17,12 @@ if ! type pyenv > /dev/null 2>&1; then
 	export PYENV_ROOT="$HOME/.pyenv"
 	command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 	eval "$(pyenv init -)"
-	install_python(3.9.9)
+	install_python 3.9.9
 fi
 
 # Is python3 command exists?
 if ! type python3 > /dev/null 2>&1; then
-	install_python(3.9.9)
+	install_python 3.9.9
 fi
 
 python3 -m pip install --upgrade pip
